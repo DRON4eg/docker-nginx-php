@@ -2,7 +2,8 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ master ]
+    branches: 
+     - master
   pull_request:
     branches: [ master ]
 
@@ -16,16 +17,16 @@ jobs:
     if: github.event_name == 'push'
     
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      #run: docker build . --file Dockerfile.7.4 --tag my-image-name:$(date +%s)
-      run: docker build . --file Dockerfile.7.4 --tag $IMAGE_NAME
+      - uses: actions/checkout@v2
+      - name: Build the Docker image
+        #run: docker build . --file Dockerfile.7.4 --tag my-image-name:$(date +%s)
+        run: docker build . --file Dockerfile.7.4 --tag $IMAGE_NAME
       
-    - name: Log into registry
-      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+      - name: Log into registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
-    - name: Push image
-      run: |
+      - name: Push image
+        run: |
           IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
 
           # Change all uppercase to lowercase
