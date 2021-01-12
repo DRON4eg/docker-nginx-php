@@ -1,5 +1,5 @@
 ## Base image for ghcr.io/dron4eg/nextcloud.
-## fork wonderfall/nextcloud
+## fork wonderfall/nextcloud.
 
 ## BUILD IMAGE
 ### Build arguments
