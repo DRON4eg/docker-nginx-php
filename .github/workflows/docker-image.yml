@@ -18,8 +18,8 @@ jobs:
     runs-on: [self-hosted, linux, x64]
     if: github.event_name == 'push'
     
-    services: 
-      image: docker:19-dind
+    #services: 
+    #  image: docker:19-dind
     
     steps:
       - uses: actions/checkout@v2
