@@ -17,15 +17,14 @@ jobs:
     #runs-on: ubuntu-latest
     runs-on: [self-hosted, linux, x64]
     if: github.event_name == 'push'
-    
     #services: 
-    #  image: docker:19-dind
-    
+    #  image: docker:19-dind  
     steps:
-      - uses: actions/checkout@v2
+      - name: Check out the repo
+        uses: actions/checkout@v2
       - name: Build the Docker image
         #run: docker build . --file Dockerfile.7.4 --tag my-image-name:$(date +%s)
-        run: docker build . --file Dockerfile.7.4 --tag $IMAGE_NAME
+        #run: docker build . --file Dockerfile.7.4 --tag $IMAGE_NAME
       
       - name: Log into registry
         #run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
@@ -33,7 +32,7 @@ jobs:
 
       - name: Push image
         run: |
-          #IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
+          # IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
           IMAGE_ID=ghcr.io/${{ github.actor }}/$IMAGE_NAME
 
           # Change all uppercase to lowercase
@@ -41,6 +40,8 @@ jobs:
 
           # Strip git ref prefix from version
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          echo VERSION=$VERSION
+          sleep 2h
 
           # Strip "v" prefix from tag name
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
