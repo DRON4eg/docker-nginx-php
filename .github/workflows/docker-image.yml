@@ -25,6 +25,11 @@ jobs:
       - name: Build the Docker image
         #run: docker build . --file Dockerfile.7.4 --tag my-image-name:$(date +%s)
         #run: docker build . --file Dockerfile.7.4 --tag $IMAGE_NAME
+        run: |
+          # Strip git ref prefix from version 
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          echo VERSION=$VERSION
+          sleep 2h
       
       - name: Log into registry
         #run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
