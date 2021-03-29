@@ -29,7 +29,7 @@ jobs:
         
       - name: Build the Docker image
         # run: docker build . --file Dockerfile.7.4 --tag $IMAGE_NAME:$(date +%s)
-        run: docker build . --file Dockerfile.7.4 --tag $IMAGE_NAME
+        run: docker build . --file Dockerfile.8.0 --tag $IMAGE_NAME
       
       - name: Log into registry
         # run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
