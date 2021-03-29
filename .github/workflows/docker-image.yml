@@ -18,21 +18,21 @@ env:
 
 jobs:
   build:
-    #runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
     runs-on: [self-hosted, linux, x64]
     if: github.event_name == 'push'
-    #services: 
+    # services: 
     #  image: docker:19-dind  
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
         
       - name: Build the Docker image
-        #run: docker build . --file Dockerfile.7.4 --tag $IMAGE_NAME:$(date +%s)
+        # run: docker build . --file Dockerfile.7.4 --tag $IMAGE_NAME:$(date +%s)
         run: docker build . --file Dockerfile.7.4 --tag $IMAGE_NAME
       
       - name: Log into registry
-        #run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+        # run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
         run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Push image
